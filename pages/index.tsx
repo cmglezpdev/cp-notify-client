@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { GetServerSideProps, NextPage } from 'next'
 
 import { ICodeforcesContest, IContest } from '@/interface'
-import { Contest } from '@/components';
+import { Contest, Header } from '@/components';
 import { baseApi } from '@/api';
 
 interface Props {
@@ -18,12 +18,15 @@ const Home : NextPage<Props> = ({ contests }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        {
-          contests.map(contest => (
-            <Contest contest={contest} key={contest.id}/>
-          ))
-        }
+      <main className='w-[300px] bg-blue-200 p-2'>
+        <Header />
+        <div className='w-full pt-2'>
+          {
+            contests.map(contest => (
+              <Contest contest={contest} key={contest.id}/>
+            ))
+          }
+        </div>
       </main>  
     </>
   )

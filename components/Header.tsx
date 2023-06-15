@@ -1,10 +1,5 @@
-import React, { FC } from 'react';
 
-interface Props {
-    children: React.ReactNode;
-}
-
-export const Header:FC<Props> = () => {
+export const Header = () => {
   return (
     <div className='w-full'>
         <div className='w-[95%] bg-international_master m-auto p-2 rounded-md text-sm'>
