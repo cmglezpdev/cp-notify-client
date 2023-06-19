@@ -1,15 +1,7 @@
 import Head from 'next/head'
-import { GetServerSideProps, NextPage } from 'next'
+import Link from 'next/link'
 
-import { ICodeforcesContest, IContest } from '@/interface'
-import { Contest, Header } from '@/components';
-import { baseApi } from '@/api';
-
-interface Props {
-  contests: IContest[];
-}
-
-const Home : NextPage<Props> = ({ contests }) => {
+const Home = () => {
   return (
     <>
       <Head>
@@ -18,14 +10,15 @@ const Home : NextPage<Props> = ({ contests }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className='w-[300px] bg-blue-200 p-2'>
-        <Header />
-        <div className='w-full pt-2'>
-          {
-            contests.map(contest => (
-              <Contest contest={contest} key={contest.id}/>
-            ))
-          }
+      <main className='w-[300px] bg-blue-200 p-2 min-h-screen'>
+        <h1 className='font-bold text-3xl text-center'>Platform Contest</h1>
+        <div className='flex flex-col gap-2 my-2'>
+          <Link href='/codeforces' className='w-full p-3 border-2 border-black rounded-md text-center cursor-pointer'>
+            CODEFORCES
+          </Link>
+          <Link href='/atcoder' className='w-full p-3 border-2 border-black rounded-md text-center cursor-pointer'>
+            ATCODER
+          </Link>
         </div>
       </main>  
     </>
@@ -33,26 +26,3 @@ const Home : NextPage<Props> = ({ contests }) => {
 }
 
 export default Home;
-
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  // const response : Response = await fetch('http://localhost:3000/api/codeforces', { method: 'GET' }); 
-  const { data } = await baseApi.get<{ contests: ICodeforcesContest[] }>('/codeforces');
-  const { contests } = data;
-  contests.sort((contestA, contestB) => contestA.startTimeSeconds - contestB.startTimeSeconds);
-
-  const codeforcesContest : IContest[] = contests.map(contest => ({
-    id: contest.id,
-    name: contest.name,
-    type: contest.type,
-    platform: 'CODEFORCES',
-    durationSeconds: contest.durationSeconds,
-    startTimeSeconds: contest.startTimeSeconds,
-    link: `https://codeforces.com/contests/${contest.id}`,
-  }))
-
-
-  return {
-    props: { contests: codeforcesContest }
-  }
-}
