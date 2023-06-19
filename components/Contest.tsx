@@ -19,7 +19,7 @@ export const Contest:FC<Props> = ({ contest }) => {
         <table>
           <thead>
             <tr className='text-center font-semibold'>
-              <td>Rules</td>
+              <td>Type</td>
               <td>Length</td>
               <td>Start</td>
             </tr>
@@ -28,7 +28,7 @@ export const Contest:FC<Props> = ({ contest }) => {
             <tr className='text-center'>
               <td>{ type }</td>
               <td>{ formatDuration(durationSeconds) }</td>
-              <td>{ formatDate(startTimeSeconds * 1000) }</td>
+              <td>{ formatDate(startTimeSeconds) }</td>
             </tr>
           </tbody>
         </table>
