@@ -1,5 +1,5 @@
 
-export const Header = () => {
+export const CodeforcesHeader = () => {
   return (
     <div className='w-full'>
         <div className='w-full bg-international_master p-2 rounded-md text-sm'>
