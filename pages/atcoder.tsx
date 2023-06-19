@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { GetServerSideProps, NextPage } from 'next'
 
 import { IContest } from '@/interface'
-import { Contest, Header } from '@/components';
+import { Contest, AtCoderHeader } from '@/components';
 import { scrapAtCoder } from '@/Scrappers';
 
 interface Props {
@@ -19,7 +19,7 @@ const AtCoder : NextPage<Props> = ({ contests }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className='w-[300px] bg-blue-200 p-2'>
-        <Header />
+        <AtCoderHeader />
         <div className='w-full pt-2'>
           {
             contests.map(contest => (
