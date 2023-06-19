@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { GetServerSideProps, NextPage } from 'next'
 
 import { ICodeforcesContest, IContest } from '@/interface'
-import { Contest, Header } from '@/components';
+import { Contest, CodeforcesHeader } from '@/components';
 import { baseApi } from '@/api';
 
 interface Props {
@@ -19,7 +19,7 @@ const Codeforces : NextPage<Props> = ({ contests }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className='w-[300px] bg-blue-200 p-2'>
-        <Header />
+        <CodeforcesHeader />
         <div className='w-full pt-2'>
           {
             contests.map(contest => (
