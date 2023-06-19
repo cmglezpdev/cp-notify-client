@@ -1,2 +1,2 @@
 export * from './Contest';
-export * from './Header';
+export * from './Headers';
