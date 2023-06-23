@@ -1,3 +1,6 @@
+import { IUser } from '@/interface/user';
+
+// CONTEST
 export interface ICodeforcesContestsResponse {
     status: string;
     result: ICodeforcesContest[];
@@ -26,4 +29,11 @@ export enum Type {
     CF = "CF",
     Icpc = "ICPC",
     Ioi = "IOI",
+}
+
+
+// USER
+export interface ICodeforcesUser {
+    status: string;
+    result: IUser[];
 }
