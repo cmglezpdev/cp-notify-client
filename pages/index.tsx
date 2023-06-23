@@ -4,7 +4,7 @@ import Link from 'next/link'
 const Home = () => {
   return (
       <AppLayout>
-        <h1 className='font-bold text-3xl text-center'>Platform Contest</h1>
+        <h1 className='font-bold text-3xl text-center'>Online Judges</h1>
         <div className='flex flex-col gap-2 my-2'>
           <Link href='/codeforces' className='w-full p-3 border-2 border-black rounded-md text-center cursor-pointer'>
             CODEFORCES
