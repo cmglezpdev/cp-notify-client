@@ -23,7 +23,7 @@ export const AppLayout: FC<Props> = ({ children }) => {
                     <p>Hello, <span>Carlos Manuel</span></p>
                     <div className='bg-gray-500 w-10 h-10 rounded-full'></div>
                 </header>
-                <main className='w-full p-2 overflow-auto'>
+                <main className='w-full p-2 pt-0 overflow-auto'>
                     { children }
                 </main>
                 <footer className='w-full flex justify-between p-2 px-8'>
