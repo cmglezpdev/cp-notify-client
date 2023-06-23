@@ -26,24 +26,23 @@ const Codeforces : NextPage<Props> = ({ contests }) => {
 
 export default Codeforces;
 
+interface ApiResponse {
+  ok: boolean;
+  message?: string;
+  contests?: IContest[]
+}
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  // const response : Response = await fetch('http://localhost:3000/api/codeforces', { method: 'GET' }); 
-  const { data } = await baseApi.get<{ contests: ICodeforcesContest[] }>('/codeforces');
-  const { contests } = data;
-  contests.sort((contestA, contestB) => contestA.startTimeSeconds - contestB.startTimeSeconds);
+  const { data } = await baseApi.get<ApiResponse>('/codeforces');
 
-  const codeforcesContest : IContest[] = contests.map(contest => ({
-    id: contest.id,
-    name: contest.name,
-    type: contest.type,
-    platform: 'CODEFORCES',
-    durationSeconds: contest.durationSeconds,
-    startTimeSeconds: contest.startTimeSeconds * 1000,
-    link: `https://codeforces.com/contests/${contest.id}`,
-  }))
+    let contests: IContest[] = []
+    if(data.ok) { 
+      contests = data.contests!;
+    } else {
+      console.log("[ATCODER ERROR]: " + data.message);
+    }
   
-  return {
-    props: { contests: codeforcesContest }
-  }
+    return {
+      props: { contests }
+    }
 }

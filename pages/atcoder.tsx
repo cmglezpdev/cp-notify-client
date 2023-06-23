@@ -2,8 +2,8 @@ import { GetServerSideProps, NextPage } from 'next'
 
 import { IContest } from '@/interface'
 import { Contest, AtCoderHeader } from '@/components';
-import { scrapAtCoder } from '@/Scrappers';
 import { AppLayout } from '@/layout';
+import { baseApi } from '@/api';
 
 interface Props {
   contests: IContest[];
@@ -26,9 +26,21 @@ const AtCoder : NextPage<Props> = ({ contests }) => {
 
 export default AtCoder;
 
+interface ApiResponse {
+  ok: boolean;
+  message?: string;
+  contests?: IContest[]
+}
+
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const contests = await scrapAtCoder();
+  const { data } = await baseApi.get<ApiResponse>('/atcoder');
+
+  let contests: IContest[] = [];
+  if(data.ok) contests = data.contests!;
+  else {
+    console.log("[ATCODER ERROR]: " + data.message!);
+  }
 
   return {
     props: { contests }
