@@ -1,18 +1,19 @@
 import { GetServerSideProps, NextPage } from 'next'
 
-import { ICodeforcesContest, IContest } from '@/interface'
+import { ICodeforcesContest, IContest, IUser } from '@/interface'
 import { Contest, CodeforcesHeader } from '@/components';
 import { baseApi } from '@/api';
 import { AppLayout } from '@/layout';
 
 interface Props {
   contests: IContest[];
+  user: IUser | null;
 }
 
-const Codeforces : NextPage<Props> = ({ contests }) => {
+const Codeforces : NextPage<Props> = ({ contests, user }) => {
   return (
     <AppLayout>
-        <CodeforcesHeader />
+        <CodeforcesHeader user={user} />
         <div className='w-full pt-2'>
           {
             contests.map(contest => (
@@ -29,20 +30,28 @@ export default Codeforces;
 interface ApiResponse {
   ok: boolean;
   message?: string;
-  contests?: IContest[]
+  contests?: IContest[];
+  user?: IUser[];
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { data } = await baseApi.get<ApiResponse>('/codeforces');
+  const contestsResponse = await baseApi.get<ApiResponse>('/codeforces');
+  const userResponse = await baseApi.get<ApiResponse>('/profile?platform=CODEFORCES&handle=CodeExtreme');
 
     let contests: IContest[] = []
-    if(data.ok) { 
-      contests = data.contests!;
+    if(contestsResponse.data.ok) { 
+      contests = contestsResponse.data.contests!;
     } else {
-      console.log("[ATCODER ERROR]: " + data.message);
+      console.log("[CODEFORCES ERROR]: " + contestsResponse.data.message);
     }
-  
+    
+    const user = userResponse.data.user;
+
+    if(!userResponse.data.ok) {
+      console.log("[CODEFORCES ERROR]: " + userResponse.data.message);
+    }
+
     return {
-      props: { contests }
+      props: { contests, user }
     }
 }
