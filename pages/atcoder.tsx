@@ -1,18 +1,19 @@
 import { GetServerSideProps, NextPage } from 'next'
 
-import { IContest } from '@/interface'
+import { IContest, IUser } from '@/interface'
 import { Contest, AtCoderHeader } from '@/components';
 import { AppLayout } from '@/layout';
 import { baseApi } from '@/api';
 
 interface Props {
   contests: IContest[];
+  user?: IUser;
 }
 
-const AtCoder : NextPage<Props> = ({ contests }) => {
+const AtCoder : NextPage<Props> = ({ contests, user }) => {
   return (
     <AppLayout>
-        <AtCoderHeader />
+        <AtCoderHeader user={user} />
         <div className='w-full pt-2'>
           {
             contests.map(contest => (
@@ -29,12 +30,14 @@ export default AtCoder;
 interface ApiResponse {
   ok: boolean;
   message?: string;
-  contests?: IContest[]
+  contests?: IContest[];
+  user?: IUser;
 }
 
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { data } = await baseApi.get<ApiResponse>('/atcoder');
+  const userResponse = await baseApi.get<ApiResponse>('/profile?platform=ATCODER&handle=tourist');
 
   let contests: IContest[] = [];
   if(data.ok) contests = data.contests!;
@@ -42,7 +45,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     console.log("[ATCODER ERROR]: " + data.message!);
   }
 
+  const user = userResponse.data.user;
+  if(!userResponse.data.ok) {
+    console.log("[ATCODER ERROR]: " + userResponse.data.message);
+  }
+
   return {
-    props: { contests }
+    props: { contests, user }
   }
 }
