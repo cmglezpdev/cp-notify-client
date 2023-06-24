@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { IContest, ICache } from '@/interface';
 import { MemoryCache } from '@/utils';
 import {  } from '../../interface';
-import { scrapAtCoder } from '@/Scrappers';
+import { ScrapperAtCoder } from '@/Scrappers';
 
 type Data = 
 | { ok: boolean, message: string }
@@ -27,7 +27,8 @@ async function getUpcomingContests(req: NextApiRequest, res: NextApiResponse<Dat
     }
 
     try {
-        const contests: IContest[] = await scrapAtCoder();
+        const scrapper = new ScrapperAtCoder();
+        const contests: IContest[] = await scrapper.getContests();
         cache.set('atcoder-contests', contests);
         return res.status(200).json({ ok: true, contests });
     } catch (e) {
