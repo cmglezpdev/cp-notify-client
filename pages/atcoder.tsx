@@ -37,7 +37,7 @@ interface ApiResponse {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { data } = await baseApi.get<ApiResponse>('/atcoder');
-  const userResponse = await baseApi.get<ApiResponse>('/profile?platform=ATCODER&handle=tourist');
+  const userResponse = await baseApi.get<ApiResponse>('/profile?platform=ATCODER&handle=CodeExtreme');
 
   let contests: IContest[] = [];
   if(data.ok) contests = data.contests!;
