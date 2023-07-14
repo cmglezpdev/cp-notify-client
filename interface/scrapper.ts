@@ -3,6 +3,6 @@ import { IUser } from "./user";
 
 
 export interface IScrapper {
-    getContests: () => Promise<IContest[]>;
+    getContests: () => Promise<IContest[] | null>;
     getProfile: (handle: string) => Promise<IUser | null>;
 }
