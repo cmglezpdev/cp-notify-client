@@ -18,15 +18,15 @@ export const AppLayout: FC<Props> = ({ children }) => {
                 <link rel='apple-touch-icon' href='/favicon.ico'></link>
                 <meta name='theme-color' content='#fff' />
             </Head>
-            <div className='w-[300px] min-h-screen max-h-screen flex flex-col justify-between bg-blue-200'>
-                <header className='w-full flex justify-between px-4 p-2 items-center'>
+            <div className='w-[300px] min-h-screen max-h-screen flex flex-col bg-blue-200'>
+                <header className='w-full flex justify-between px-4 p-2 h-1/5 items-center'>
                     <p>Hello, <span>Carlos Manuel</span></p>
                     <div className='bg-gray-500 w-10 h-10 rounded-full'></div>
                 </header>
-                <main className='w-full p-2 pt-0 overflow-auto'>
+                <main className='w-full p-2 pt-0 overflow-auto flex-1'>
                     { children }
                 </main>
-                <footer className='w-full flex justify-between p-2 px-8'>
+                <footer className='w-full flex justify-between p-2 px-8 h-1/5'>
                     <Link href='/'>
                         <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth={1.5} stroke='currentColor' className='w-8 h-8'>
                             <path strokeLinecap='round' strokeLinejoin='round' d='M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25' />
