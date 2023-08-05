@@ -3,6 +3,8 @@ import Link from 'next/link';
 
 import { AppLayout } from '@/layout';
 import { ApiPlatformResponse, Platform } from '@/types/platform';
+import { httpService } from '@/services';
+import { constants } from '@/utils';
 
 interface Props {
   platforms: Platform[];
@@ -33,8 +35,7 @@ export default HomePage;
 
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const response = await fetch('http://localhost:4000/api/platform');
-  const { platforms }: ApiPlatformResponse = await response.json();
+  const { platforms } = await httpService.get<ApiPlatformResponse>(constants.API_CONTESTS_PATH);
 
   return {
     props: { platforms }
