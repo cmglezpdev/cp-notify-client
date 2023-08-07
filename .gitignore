@@ -39,3 +39,5 @@ next-env.d.ts
 /data
 
 .env
+.vscode
+database.md
