@@ -12,9 +12,9 @@ export const Contest: FC<Props> = ({ contest }) => {
 
   return (
     <Link href={link} target='_blank' rel='noreferrer'>
-      <div className='w-full bg-gray-400 rounded-md my-1 border-2 border-gray-900 cursor-default text-sm'>
-        <h1 className='text-center font-semibold py-2 border-b-2 border-b-gray-900'>{name}</h1>
-        <div className='flex flex-col'>
+      <div className='w-full bg-slate-700 text-slate-50 dark:bg-slate-800/70 dark: dark:text-slate-300 rounded-md my-1 border dark:border-slate-500 cursor-default text-sm hover:scale-105 transition-transform'>
+        <h3 className='text-center text-base font-semibold p-2 border-b border-slate-300 dark:border-b-slate-500'>{name}</h3>
+        <div className='flex flex-col py-2'>
           <table>
             <thead>
               <tr className='text-center font-semibold'>
