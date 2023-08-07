@@ -1,10 +1,5 @@
-//! Platforms
-export interface ApiPlatformResponse {
-    platforms: Platform[];
-    status: number;
-}
 
-export interface Platform {
+export interface IPlatform {
     id: number;
     link: string;
     name: string;
