@@ -14,17 +14,17 @@ export const AppLayout: FC<Props> = ({ children }) => {
                 <meta name='description' content='Notify about Competitive Programming Contests' />
                 <meta name='viewport' content='width=device-width, initial-scale=1' />
                 <link rel='icon' href='/favicon.ico' />
-                <link rel='manifest' href='/manifest.json' />
+                {/* <link rel='manifest' href='/manifest.json' /> */}
                 <link rel='apple-touch-icon' href='/favicon.ico'></link>
                 <meta name='theme-color' content='#fff' />
             </Head>
-            <div className='w-[300px] min-h-screen max-h-screen flex flex-col bg-blue-200'>
+            <div className='container min-h-screen max-h-screen flex flex-col py-3'>
                 <header className='w-full flex justify-between px-4 p-2 h-1/5 items-center'>
                     <p>Hello, <span>Carlos Manuel</span></p>
                     <div className='bg-gray-500 w-10 h-10 rounded-full'></div>
                 </header>
-                <main className='w-full p-2 pt-0 overflow-auto flex-1'>
-                    { children }
+                <main className='w-full p-2 px-5 overflow-auto flex-1'>
+                    {children}
                 </main>
                 <footer className='w-full flex justify-between p-2 px-8 h-1/5'>
                     <Link href='/'>
