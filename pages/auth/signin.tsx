@@ -1,25 +1,37 @@
-import Link from 'next/link';
 import { FormEvent } from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import Cookie from 'js-cookie';
+
+import { httpService, notify, validate } from '@/services';
+import { ISignInApiResponse } from '@/types/auth';
+import { constants } from '@/utils';
 
 function SignInPage() {
+
+    const router = useRouter();
+
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const email = formData.get('email')!.toString();
         const password = formData.get('password')!.toString();
 
-        // try {
-        //     validate.SignIn({ email, password });
-        // } catch (error) {
-        //     notify.error((error as { message: string }).message)
-        //     return;
-        // }
+        try {
+            validate.signIn({ email, password });
+        } catch (error) {
+            notify.error((error as { message: string }).message)
+            return;
+        }
 
-        // signIn({
-        //     variables: {
-        //         credentials: { email, password }
-        //     }
-        // })
+        try {
+            const response = await httpService.post<ISignInApiResponse>(constants.API_SIGNIN, { email, password });
+            Cookie.set('__USER_TOKEN__', response.token);
+            Cookie.set('__USER_ID__', response.user.id);
+            router.push('/');
+        } catch (error) {
+            notify.error((error as { message: string }).message);
+        }
     }
 
     return (
@@ -38,7 +50,7 @@ function SignInPage() {
                         type="password"
                         name="password"
                         className="border-2 text-gray-900 rounded-lg focus:border-fuchsia-300 block w-full p-2.5 outline-none"
-                        placeholder="You password"
+                        placeholder="Your password"
                     />
 
                     <button className="flex items-center gap-4 mt-5 border-2 border-transparent bg-violet-700 px-6 py-2 text-white font-semibold rounded-lg self-end focus:border-violet-800" type="submit">
