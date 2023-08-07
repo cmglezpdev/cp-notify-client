@@ -2,12 +2,12 @@ import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 
 import { AppLayout } from '@/layout';
-import { ApiPlatformResponse, Platform } from '@/types/platform';
+import { IPlatform } from '@/types/platform';
 import { httpService } from '@/services';
 import { constants } from '@/utils';
 
 interface Props {
-  platforms: Platform[];
+  platforms: IPlatform[];
 }
 
 function HomePage({ platforms }: Props) {
@@ -35,7 +35,7 @@ export default HomePage;
 
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { platforms } = await httpService.get<ApiPlatformResponse>(constants.API_CONTESTS_PATH);
+  const platforms = await httpService.get<IPlatform[]>(constants.API_PLATFORM);
 
   return {
     props: { platforms }
