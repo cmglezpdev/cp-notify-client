@@ -1,15 +1,13 @@
 import { FormEvent } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import Cookie from 'js-cookie';
 
-import { httpService, notify, validate } from '@/services';
-import { ISignInApiResponse } from '@/types/auth';
-import { constants } from '@/utils';
+import { notify } from '@/services';
+import { useAuthStore } from '@/store';
 
 function SignInPage() {
-
     const router = useRouter();
+    const { signIn } = useAuthStore();
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -18,16 +16,7 @@ function SignInPage() {
         const password = formData.get('password')!.toString();
 
         try {
-            validate.signIn({ email, password });
-        } catch (error) {
-            notify.error((error as { message: string }).message)
-            return;
-        }
-
-        try {
-            const response = await httpService.post<ISignInApiResponse>(constants.API_SIGNIN, { email, password });
-            Cookie.set('__USER_TOKEN__', response.token);
-            Cookie.set('__USER_ID__', response.user.id);
+            await signIn({ email, password });
             router.push('/');
         } catch (error) {
             notify.error((error as { message: string }).message);
