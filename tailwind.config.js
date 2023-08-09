@@ -22,7 +22,10 @@ module.exports = {
         'grandmaster': "#ff7777",
         'international_grandmaster': "#ff3333",
         'legendary_grandmaster': "#aa0000"
-      }
+      },
+      scale: {
+        '103': '103%' 
+      },
     },
   },
   plugins: [],
