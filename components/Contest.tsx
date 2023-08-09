@@ -8,11 +8,11 @@ interface Props {
 }
 
 export const Contest: FC<Props> = ({ contest }) => {
-  const { name, link, durationSeconds, startTimeSeconds, type } = contest;
+  const { id, name, link, durationSeconds, startTimeSeconds, type } = contest;
 
   return (
-    <Link href={link} target='_blank' rel='noreferrer'>
-      <div className='w-full bg-slate-700 text-slate-50 dark:bg-slate-800/70 dark: dark:text-slate-300 rounded-md my-1 border dark:border-slate-500 cursor-default text-sm hover:scale-105 transition-transform'>
+    <Link href={`/contests/${id}`} target='_blank' rel='noreferrer'>
+      <div className='w-full bg-slate-700 text-slate-50 dark:bg-slate-800/70 dark: dark:text-slate-300 rounded-md my-1 border dark:border-slate-500 cursor-default text-sm hover:scale-103 transition-transform'>
         <h3 className='text-center text-base font-semibold p-2 border-b border-slate-300 dark:border-b-slate-500'>{name}</h3>
         <div className='flex flex-col py-2'>
           <table>
