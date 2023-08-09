@@ -1,11 +1,11 @@
-import { Platform } from "./platform.d";
+import { IPlatform } from "./platform.d";
 
 
 export interface IContest {
     id: string;
     link: string;
     name: string;
-    platform: Platform;
+    platform: IPlatform;
     type: string;
     durationSeconds: string;
     startTimeSeconds: string;
