@@ -54,7 +54,7 @@ export default Codeforces;
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { platform } = (ctx.params as { platform: string });
   const token = ctx.req.cookies['__ACCESS_TOKEN__'] || '';
-  const contests = await httpService.get<IContest[]>(`/api/contest/${platform}`);
+  const contests = await httpService.get<IContest[]>(`/api/contest/platform/${platform}`);
 
   let handle = null;
   try {
