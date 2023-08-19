@@ -1,11 +1,11 @@
+import Link from 'next/link';
 import { GetServerSideProps } from 'next'
+import { dateService } from '../../utils'
 
 import { httpService } from '@/services';
 import { IContest } from '@/types/contest';
 import { AppLayout } from '@/layout';
 import { EditOutlineIcon, LinkOutlineIcon, RemoveOutlineIcon } from '@/components/Icons';
-import Link from 'next/link';
-
 
 interface Props {
     contest: IContest;
@@ -13,29 +13,28 @@ interface Props {
 
 function ContestInfoPage({ contest }: Props) {
 
-    const { name, platform, link } = contest;
+    const { name, platform, link, durationSeconds, startTimeSeconds } = contest;
     const { name: platformName } = platform;
 
     return (
         <AppLayout>
             <div className='w-full'>
-                {/* <header className='dark:bg-slate-600 p-5 pb-10 rounded-t-lg rounded-b-[4rem] text-center'> */}
                 <header className='p-5 rounded-t-lg rounded-b-[4rem] text-center dark:bg-gradient-to-t dark:from-slate-700'>
                     <h1 className='text-2xl font-bold dark:text-slate-200'>{name}</h1>
                     <h2 className='text-xl font-semibold mt-3 dark:text-slate-400'>{platformName}</h2>
 
                     <section className='relative mt-6 text-slate-300'>
-                        <span className='absolute font-semibold block w-full text-center top-3'>2 hours</span>
+                        <span className='absolute font-semibold block w-full text-center top-3'>{dateService.formatDurationMinutes(+durationSeconds)} minutes</span>
                         <div className='flex items-center justify-between relative'>
                             <div className='px-2 py-4 rounded-full bg-sky-700'>
-                                <span className='font-semibold'>14:00</span>
+                                <span className='font-semibold'>{dateService.getTimeFromDate(+startTimeSeconds)}</span>
                             </div>
                             <div className='absolute -bottom-1 w-full h-[100px] border-[15px] rounded-b-[35%] border-transparent border-b-sky-700'></div>
                             <div className='px-2 py-4 rounded-full bg-sky-700'>
-                                <span className='font-semibold'>16:00</span>
+                                <span className='font-semibold'>{dateService.addSecondsToDate(+startTimeSeconds, +durationSeconds)}</span>
                             </div>
                         </div>
-                        <span className='block w-full text-center mt-3'>Thusday, 14/6/9</span>
+                        <span className='block w-full text-center mt-3'>{dateService.formatDate(+startTimeSeconds, { dayOfWeek: true, hour: false })}</span>
                         <div className='mt-7 p-3 flex gap-1 justify-center items-center text-slate-200 font-semibold bottom-1 hover:underline hover:text-sky-500 transition-colors'>
                             <LinkOutlineIcon className='w-4 h-4' />
                             <Link href={link} target='_blank' referrerPolicy='no-referrer'>See Contest</Link>
