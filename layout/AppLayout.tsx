@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useAuthStore } from '@/store'
-import { HomeOutlineIcon, HomeSolidIcon, NotificationOutlineIcon, NotificationSolidIcon, SettingsOutlineIcon, SettingsSolidIcon } from '@/components/Icons'
+import { HomeOutlineIcon, HomeSolidIcon, NotificationOutlineIcon, NotificationSolidIcon, SettingsOutlineIcon, SettingsSolidIcon, UserOutlineIcon } from '@/components/Icons'
 
 interface Props {
     children: React.ReactNode
@@ -19,15 +19,13 @@ export function AppLayout({ children }: Props) {
                 <meta name='description' content='Notify about Competitive Programming Contests' />
                 <meta name='viewport' content='width=device-width, initial-scale=1' />
                 <link rel='icon' href='/favicon.ico' />
-                {/* <link rel='manifest' href='/manifest.json' /> */}
                 <link rel='apple-touch-icon' href='/favicon.ico'></link>
                 <meta name='theme-color' content='#fff' />
             </Head>
-            {/* <div className='w-full max-w-sm m-auto min-h-screen max-h-screen flex flex-col py-3 dark:bg-blue-dark'> */}
             <div className='w-full max-w-sm m-auto min-h-screen max-h-screen flex flex-col py-3 pb-0 bg-white text-slate-500 dark:text-slate-400 dark:bg-gradient-to-bl dark:from-slate-900 dark:via-cyan-900 dark:to-slate-900 dark:from-5% dark:via-20% dark:to-35%'>
                 <header className='w-full flex justify-between px-4 p-2 h-1/5 items-center'>
                     <p className='text-slate-300'>Hello, <span>{user?.name}</span></p>
-                    <div className='bg-gray-500 w-10 h-10 rounded-full'></div>
+                    <UserOutlineIcon className='w-10 h-10' />
                 </header>
                 <main className='w-full p-2 px-5 overflow-auto flex-1'>
                     {children}
