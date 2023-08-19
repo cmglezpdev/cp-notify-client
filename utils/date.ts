@@ -1,21 +1,37 @@
+import dayjs from "dayjs";
 
-export const formatDate = (dateTime: string | number): string => {
-    const date = new Date(dateTime);
-    const day = (date.getDate() >= 10) ? date.getDate() : `0${date.getDate()}`;
-    const month = (date.getMonth() + 1 >= 10) ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
-    const year = (date.getFullYear() >= 10) ? date.getFullYear() : `0${date.getFullYear()}`;
-    const hour = (date.getHours() >= 10) ? date.getHours() : `0${date.getHours()}`;
-    const minutes = (date.getMinutes() >= 10) ? date.getMinutes() : `0${date.getMinutes()}`;
 
-    return `${day}/${month}/${year}, ${hour}:${minutes}`;
+const initialformatDateSetting = {
+    dayOfWeek: false,
+    hour: true
+}
+export const formatDate = (dateTime: number, settings = initialformatDateSetting): string => {
+    const { dayOfWeek, hour } = settings;
+    let format = 'MMM/DD/YYYY';
+    if (dayOfWeek) format = 'dddd ' + format;
+    if (hour) format += ', HH:mm';
+
+    return dayjs(dateTime).format(format)
 }
 
 
-export const formatDuration = (duration: number | string): string => {
-    duration = typeof duration === 'string' ? parseInt(duration) : duration;
+export const formatDurationHours = (duration: number): string => {
     const hour = Math.floor(duration / 3600);
     const minutes = Math.floor((duration - 3600 * hour) / 60);
     return `${hour < 10 ? `0${hour}` : hour}:${minutes < 10 ? `0${minutes}` : minutes}`;
+}
+
+export const formatDurationMinutes = (duration: number): string => {
+    return `${duration / 60}`;
+}
+
+
+export const getTimeFromDate = (dateTime: number): string => {
+    return dayjs(dateTime).format('HH:mm')
+}
+
+export const addSecondsToDate = (dateTime: number, seconds: number): string => {
+    return dayjs(dateTime).add(seconds, 'seconds').format('HH:mm')
 }
 
 export const timeToSeconds = (duration: string): number => {
